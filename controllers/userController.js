@@ -13,7 +13,8 @@ const {
   updateObjective,
   incrementAchieved,
   getClientsByCloser,
-  getMeetingsByCloser
+  getMeetingsByCloser,
+  getAllClosers
 } = require('../models/userModel');
 
 /**
@@ -219,3 +220,21 @@ exports.getGroupObjective = async (req, res) => {
     res.status(500).json({ message: 'Error interno del servidor' });
   }
 };
+
+// GetAllClosers
+
+exports.getAllClosers = async (req, res) => {
+  try {
+    if (req.user.role !== 'ADMIN') {
+      console.log('→ req.user:', req.user);
+      return res.status(403).json({ message: 'Acceso no autorizado' });
+    }
+
+    const closers = await getAllClosers();
+    res.json(closers);
+  } catch (err) {
+    console.error('Error en getAllClosers:', err);
+    res.status(500).json({ message: 'Error al obtener los closers' });
+  }
+};
+

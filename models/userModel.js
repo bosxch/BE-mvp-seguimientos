@@ -197,6 +197,21 @@ async function getMeetingsByCloser(closerId) {
   return rows;
 }
 
+async function getAllClosers() {
+  const [rows] = await promisePool.query(`
+    SELECT 
+      id,
+      name,
+      email,
+      objective,
+      achieved,
+      percent_complete AS percentComplete
+    FROM Users
+    WHERE role = 'CLOSER'
+  `);
+  return rows;
+}
+
 module.exports = {
   getUserById,
   getUserByEmail,
@@ -205,5 +220,6 @@ module.exports = {
   updateObjective,
   incrementAchieved,
   getClientsByCloser,
-  getMeetingsByCloser
+  getMeetingsByCloser,
+  getAllClosers
 };

@@ -40,5 +40,10 @@ router.get('/meetings', auth, userController.listMeetingsOfCloser);
 // 9)SOLO ADMIN: Obtener objetivos generales 
 router.get('/admin/group-objective', auth, userController.getGroupObjective);
 
+// 10) SOLO ADMIN: obtener tabla de closers
+
+router.get('/admin/closers-list', auth, userController.getAllClosers);
+
+
 
 module.exports = router;
